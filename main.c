@@ -6,7 +6,7 @@
 /*   By: tarchimb <tarchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 08:55:43 by tarchimb          #+#    #+#             */
-/*   Updated: 2021/11/17 10:27:42 by tarchimb         ###   ########.fr       */
+/*   Updated: 2021/11/17 11:20:08 by tarchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	ft_print_arg(va_list arg, char c)
 	if (c == 'u')
 		count = ft_putnbr_unsigned((unsigned int)va_arg(arg, unsigned int));
 	if (c == 'x' || c == 'X' || c == 'p')
-		count = ft_put_hexa((uintptr_t)va_arg(arg, uintptr_t), c);
+		count = ft_put_hexa((unsigned long long)
+				va_arg(arg, unsigned long long), c);
 	return (count);
 }
 
@@ -68,8 +69,8 @@ int	main(void)
 	unsigned int	u;
 
 	i = "salut";
-	c = 2147483647;
+	c = 10;
 	u = c * 2;
-	ft_printf("%d\n", ft_printf("string -->%s,purcent--> %%,char-->%c, int--> %d, unsigned int-->%u, address--> %p\n", i, c, c, u, &u));
-	printf("%d\n", printf("string -->%s,purcent--> %%,char-->%c, int--> %d, unsigned int-->%u, address--> %p\n", i, c, c, u, &u));
+	ft_printf("%d\n", ft_printf("%d", u));
+	printf("%d\n", printf("%d", u));
 }
