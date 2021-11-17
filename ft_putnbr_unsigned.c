@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tarchimb <tarchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 09:08:30 by tarchimb          #+#    #+#             */
-/*   Updated: 2021/11/17 12:17:04 by tarchimb         ###   ########.fr       */
+/*   Created: 2021/11/17 09:40:42 by tarchimb          #+#    #+#             */
+/*   Updated: 2021/11/17 12:16:20 by tarchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdio.h>
+static int	ft_recursive(unsigned int nb)
+{
+	static int	i = 0;
 
-int	ft_printf(const char *s, ...);
-int	ft_print_arg(va_list arg, char c);
-int	ft_put_hexa(unsigned long long nb, char c);
-int	ft_putnbr_unsigned(unsigned int nb);
-int	ft_putchar(char c);
-int	ft_putstr(char *str);
-int	ft_putnbr(int nb);
-#endif
+	if (nb > 9)
+	{
+		ft_recursive(nb / 10);
+	}
+	i = i + ft_putchar(nb % 10 + '0');
+	return (i);
+}
+
+int	ft_putnbr_unsigned(unsigned int nb)
+{
+	int	i;
+
+	i = 0;
+	i = i + ft_recursive(nb);
+	return (i);
+}
