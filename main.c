@@ -1,87 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tarchimb <tarchimb@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/17 08:55:43 by tarchimb          #+#    #+#             */
+/*   Updated: 2021/11/17 10:27:42 by tarchimb         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
-void    ft_putchar(char c)
+
+int	ft_print_arg(va_list arg, char c)
 {
-    write(1, &c, 1);
+	int	count;
+
+	count = 0;
+	if (c == 's')
+		count = ft_putstr((char *)va_arg(arg, char *));
+	if (c == 'c')
+		count = ft_putchar((int)va_arg(arg, int));
+	if (c == '%')
+		count = ft_putchar('%');
+	if (c == 'd' || c == 'i')
+		count = ft_putnbr((int)va_arg(arg, int));
+	if (c == 'u')
+		count = ft_putnbr_unsigned((unsigned int)va_arg(arg, unsigned int));
+	if (c == 'x' || c == 'X' || c == 'p')
+		count = ft_put_hexa((uintptr_t)va_arg(arg, uintptr_t), c);
+	return (count);
 }
 
-void ft_putnbr(int nb)
+int	ft_printf(const char *s, ...)
 {
-    if (nb == -2147483648)
-        write(1, "-2147483648", 11);
-    else if (nb < 0)
-    {
-        nb *= -1;
-        write(1, "-", 1);
-    }
-    if (nb > 9)
-    {
-        ft_putnbr(nb / 10);
-        ft_putnbr(nb % 10);
-    }
-    if (nb <= 9 && nb >= 0)
-        ft_putchar(nb + '0');
+	va_list	argptr;
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 0;
+	va_start(argptr, s);
+	while (s[i])
+	{
+		if (s[i] == '%')
+		{
+			count = count + ft_print_arg(argptr, s[i + 1]);
+			i += 2;
+		}
+		else
+		{
+			if (s[i] == '\n')
+				count = count + ft_putchar('\n');
+			else
+				count = count + ft_putchar(s[i]);
+			i++;
+		}
+	}
+	va_end(argptr);
+	return (count);
 }
 
-int ft_printf(const char *s, ...)
+int	main(void)
 {
-    va_list argptr;
-    int i;
+	char			*i;
+	int				c;
+	unsigned int	u;
 
-    i = 0;
-    va_start(argptr, s);
-    while (s[i])
-    {
-        if (s[i] == '%')
-        {
-            if (s[i + 1] == 's')
-            {
-                char *string_type;
-                string_type = (char *)va_arg(argptr, char *);
-                while (*string_type)
-                    ft_putchar(*string_type++);
-                i += 2;
-            }
-            else if (s[i + 1] == 'c')
-            {
-                char    char_type;
-                char_type = (char)va_arg(argptr, char);
-                ft_putchar(char_type);
-                i += 2;
-            }
-            if (s[i + 1] == 'd')
-            {
-                int int_type;
-                int_type = (int)va_arg(argptr, int);
-                //printf("(%d)", int_type);
-                ft_putnbr(int_type);
-                i += 2;
-            }
-        }
-        else
-        {
-            if (s[i] == '\n')
-                ft_putchar('\n');
-            else
-                ft_putchar(s[i]);
-            i++;
-        }
-    }
-    va_end(argptr);
-    return (0);
-}
-
-int main()
-{
-    int     r;
-    char    *i;
-    char    *j;
-    char    *k;
-    char    c = 's';
-
-    r = 45345;
-    i = "salut";
-    j = " tu vas bien?";
-    k = " moi oui";
-    ft_printf("string -->%s%s%s, %d , %c \n", i, j, k, r, c);
-    printf("string -->%s%s%s, %d , %c \n", i, j, k, r, c);
+	i = "salut";
+	c = 2147483647;
+	u = c * 2;
+	ft_printf("%d\n", ft_printf("string -->%s,purcent--> %%,char-->%c, int--> %d, unsigned int-->%u, address--> %p\n", i, c, c, u, &u));
+	printf("%d\n", printf("string -->%s,purcent--> %%,char-->%c, int--> %d, unsigned int-->%u, address--> %p\n", i, c, c, u, &u));
 }
