@@ -6,7 +6,7 @@
 /*   By: tarchimb <tarchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 10:24:17 by tarchimb          #+#    #+#             */
-/*   Updated: 2021/11/17 12:16:03 by tarchimb         ###   ########.fr       */
+/*   Updated: 2021/11/18 08:59:39 by tarchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	ft_put_hexa(unsigned long long nb, char c)
 	base = "0123456789abcdef";
 	base2 = "0123456789ABCDEF";
 	count = 0;
-	if (nb > 16)
+	if (nb > 15)
 		count = ft_put_hexa(nb / 16, c);
-	if (nb < 16 && c == 'p')
+	if (nb <= 15 && c == 'p')
 		count = count + ft_putstr("0x");
 	if (c == 'X')
 		count = count + ft_putchar(base2[nb % 16]);

@@ -6,7 +6,7 @@
 /*   By: tarchimb <tarchimb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 08:55:43 by tarchimb          #+#    #+#             */
-/*   Updated: 2021/11/17 12:49:36 by tarchimb         ###   ########.fr       */
+/*   Updated: 2021/11/18 09:12:45 by tarchimb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ int	ft_printf(const char *s, ...)
 	return (count);
 }
 
-// int	main(void)
-// {
-// 	char			*i;
-// 	int				c;
-// 	unsigned int	u;
+int	main(void)
+{
+	char			*i;
+	int				c;
+	unsigned int	u;
 
-// 	i = NULL;
-// 	c = -1;
-// 	u = c * 2;
-// 	printf("\n[%d]\n", printf("%X %c %s %p %% %d %i %u %x", c,c,i,&i,c,c,c,c));
-// 	ft_printf("\n[%d]\n", ft_printf("%X %c %s %p %% %d %i %u %x",c,c,i,&i,c,c,c,c));
-// }
+	i = NULL;
+	c = -1;
+	u = c * 2;
+	printf("\n[%d]\n", printf(" %u %u %u %u %u %u %u", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+	ft_printf("\n[%d]\n", ft_printf(" %u %u %u %u %u %u %u", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42));
+}
