@@ -1,0 +1,9 @@
+---
+applyTo: '*'
+---
+## Standard: Rule vaadata
+
+Define Rule vaadata to standardize behavior and improve consistency across the codebase. :
+* Rule vaadata
+
+Full standard is available here for further request: [Rule vaadata](../../.packmind/standards/test-1.md)
